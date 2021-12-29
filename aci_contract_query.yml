@@ -23,7 +23,7 @@
         content: "{{ query_result }}"
         dest: output.txt
 
-   # # Display output on screen
+    # Display output on screen
     - name: Validate
       debug:
        var: query_result
