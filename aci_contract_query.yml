@@ -1,0 +1,29 @@
+---
+- name: INITIATE PLAYBOOK
+  hosts: apic
+  connection: local
+  gather_facts: False
+
+  tasks:
+
+    # Display all contracts in the tenant
+    - name: Query all contracts
+      aci_contract:
+       host: "{{ ansible_host }}"
+       username: "admin"
+       password: "!v3G@!4@Y"
+       state: query
+       validate_certs: False
+       tenant: blahandmeh
+      register: query_result
+
+    # Dump output into local file
+    - local_action:
+        module: copy
+        content: "{{ query_result }}"
+        dest: output.txt
+
+    # Display output on screen
+    - name: Validate
+      debug:
+       var: query_result
